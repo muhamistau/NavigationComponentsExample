@@ -21,7 +21,12 @@ class AmountFragment : Fragment(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        recipient = arguments!!.getString("recipient")
+
+        // Getting arguments the normal way
+//        recipient = arguments!!.getString("recipient")
+
+        // Getting arguments with Safe Args
+        recipient = AmountFragmentArgs.fromBundle(arguments!!).recipient
     }
 
     override fun onCreateView(
@@ -45,14 +50,22 @@ class AmountFragment : Fragment(), View.OnClickListener {
             R.id.send_btn -> {
                 if (!TextUtils.isEmpty(input_amount.text.toString())) {
                     val amount = Money(BigDecimal(input_amount.text.toString()))
-                    val bundle = bundleOf(
-                        "recipient" to recipient,
-                        "amount" to amount
-                    )
-                    navController!!.navigate(
-                        R.id.action_amountFragment_to_confirmationFragment,
-                        bundle
-                    )
+
+                    // Passing data between fragments the normal way using bundle
+//                    val bundle = bundleOf(
+//                        "recipient" to recipient,
+//                        "amount" to amount
+//                    )
+//                    navController!!.navigate(
+//                        R.id.action_amountFragment_to_confirmationFragment,
+//                        bundle
+//                    )
+
+                    // Passing data between fragments with Safe Args
+                    val directions = AmountFragmentDirections
+                        .actionAmountFragmentToConfirmationFragment(
+                            recipient = recipient, amount = amount)
+                    navController!!.navigate(directions)
                 } else {
                     Toast.makeText(activity, "Enter an amount", Toast.LENGTH_SHORT).show()
                 }

@@ -17,8 +17,14 @@ class ConfirmationFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        recipient = arguments!!.getString("recipient")
-        money = arguments!!.getParcelable("amount")
+
+        // Getting arguments the normal way
+//        recipient = arguments!!.getString("recipient")
+//        money = arguments!!.getParcelable("amount")
+
+        // Getting arguments with Safe Args
+        recipient = ConfirmationFragmentArgs.fromBundle(arguments!!).recipient
+        money = ConfirmationFragmentArgs.fromBundle(arguments!!).amount
     }
 
     override fun onCreateView(
@@ -31,7 +37,6 @@ class ConfirmationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val amount = money!!.amount
-        confirmation_message.text = "You have sent $$amount to $recipient"
+        confirmation_message.text = "You have sent $${money.amount} to $recipient"
     }
 }

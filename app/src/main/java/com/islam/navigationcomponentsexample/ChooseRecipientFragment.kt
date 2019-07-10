@@ -36,11 +36,15 @@ class ChooseRecipientFragment : Fragment(), View.OnClickListener {
         when(v!!.id) {
             R.id.next_btn -> {
                 if (!TextUtils.isEmpty(input_recipient.text.toString())) {
-                    val bundle = bundleOf("recipient" to input_recipient.text.toString())
-                    navController!!.navigate(
-                        R.id.action_chooseRecipientFragment_to_amountFragment,
-                        bundle
-                    )
+
+                    // Passing data between fragments the normal way using bundle
+//                    val bundle = bundleOf("recipient" to input_recipient.text.toString())
+//                    navController!!.navigate(R.id.action_chooseRecipientFragment_to_amountFragment, bundle)
+
+                    // Passing data between fragments with Safe Args
+                    val directions = ChooseRecipientFragmentDirections
+                        .actionChooseRecipientFragmentToAmountFragment(input_recipient.text.toString())
+                    navController!!.navigate(directions)
                 } else {
                     Toast.makeText(activity, "Enter a recipient", Toast.LENGTH_SHORT).show()
                 }

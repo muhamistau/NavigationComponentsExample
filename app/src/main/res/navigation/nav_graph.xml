@@ -52,7 +52,8 @@
         tools:layout="@layout/fragment_amount">
 
         <argument android:name="recipient"
-            android:defaultValue="none"/>
+            android:defaultValue="none"
+            app:argType="string" />
 
         <action
             android:id="@+id/action_amountFragment_to_confirmationFragment"
@@ -74,7 +75,8 @@
         tools:layout="@layout/fragment_confirmation">
 
         <argument android:name="recipient"
-            android:defaultValue="none"/>
+            android:defaultValue="none"
+            app:argType="string" />
 
         <argument android:name="amount"
             app:argType="com.islam.navigationcomponentsexample.Money"/>
