@@ -8,4 +8,5 @@ import kotlinx.android.parcel.Parcelize
 import java.math.BigDecimal
 
 @Parcelize
+@SuppressLint("ParcelCreator")
 data class Money(val amount: BigDecimal): Parcelable
